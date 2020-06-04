@@ -77,7 +77,7 @@ static Key keys[] = {
 	{ MODKEY,		        XK_Return, spawn,          {.v = termcmd } },
 	{ 0,				XK_Print,  spawn,	   {.v = scrot } },
 	{ MODKEY|ShiftMask,		XK_w,	   spawn,	   SHCMD("st -e weather") },
-	{ MODKEY,			XK_c,	   spawn,	   SHCMD("calcurse") },
+	{ MODKEY,			XK_c,	   spawn,	   SHCMD("st -e calcurse") },
 	{ MODKEY,			XK_semicolon,   spawn,	   SHCMD("dswitcher") },
 	{ MODKEY,			XK_BackSpace, spawn,	   SHCMD("dmenufm") },
 	{ MODKEY,			XK_t,	   spawn,	   SHCMD("telegram-desktop") },
