@@ -80,6 +80,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,		        XK_Return, spawn,          {.v = termcmd } },
 	{ 0,				XK_Print,  spawn,	   {.v = scrot } },
+	{ MODKEY,			XK_o,	   spawn,	   SHCMD("dmenu_websearch") },
 	{ MODKEY|ShiftMask,		XK_n,	   spawn,	   SHCMD("st -e newsboat") },
 	{ MODKEY|ShiftMask,		XK_w,	   spawn,	   SHCMD("st -e weather") },
 	{ MODKEY,			XK_c,	   spawn,	   SHCMD("st -e calcurse") },
