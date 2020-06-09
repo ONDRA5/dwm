@@ -35,7 +35,7 @@ static const Rule rules[] = {
 	{ "Brave",     	NULL,	  NULL,       1,	    0,		 0,		0,		-1 },
 	{ "st-256color",NULL,	  NULL,	      0,	    0,		 1,		0,		-1 },
 	{ NULL,		NULL, "Event Tester", 0,	    0,		 0,		1,		-1 },
-	{ "firefox", "Toolkit", "Picture-in-Picture", 0,    1,		 0,		0,		-1 },
+	{ "firefox", 	NULL, "Picture-in-Picture", 0,    1,		 0,		0,		-1 },
 };
 
 /* layout(s) */
@@ -87,7 +87,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_semicolon,   spawn,	   SHCMD("dswitcher") },
 	{ MODKEY,			XK_BackSpace, spawn,	   SHCMD("dmenufm") },
 	{ MODKEY,			XK_t,	   spawn,	   SHCMD("telegram-desktop") },
-	{ MODKEY,			XK_w,	   spawn,	   SHCMD("firefox") }, 
+	{ MODKEY,			XK_w,	   spawn,	   SHCMD("qutebrowser") }, 
 	{ MODKEY,			XK_e,	   spawn,	   SHCMD("emoji") },
 	{ MODKEY|ShiftMask,		XK_m,      spawn,	   SHCMD("dmenumount") },
 	{ MODKEY|ShiftMask,		XK_u,	   spawn,	   SHCMD("dmenuumount") },
