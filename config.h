@@ -74,7 +74,6 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *scrot[] = { "scrot", NULL };
 static const char *dmenuexit[] = { "/home/ondra/.local/bin/dmenuexit.sh", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
@@ -85,7 +84,8 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,		        XK_Return, spawn,          {.v = termcmd } },
-	{ 0,				XK_Print,  spawn,	   {.v = scrot } },
+	{ 0,				XK_Print,  spawn,	   SHCMD("maim --hidecursor $HOME/Pictures/screenshots/$(date +%d_%b_%H:%M ).png") },
+	{ ShiftMask,			XK_Print,  spawn,	   SHCMD("maim -s --hidecursor $HOME/Pictures/screenshots/$(date +%d_%b_%H:%M ).png") },
 	{ MODKEY,			XK_o,	   spawn,	   SHCMD("dmenu_websearch") },
 	{ MODKEY|ShiftMask,		XK_n,	   spawn,	   SHCMD("st -e newsboat") },
 	{ MODKEY|ShiftMask,		XK_w,	   spawn,	   SHCMD("st -e weather") },
