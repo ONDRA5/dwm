@@ -61,11 +61,11 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
-#define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+#define TAGKEYS(CHAIN,KEY,TAG) \
+	{ MODKEY,                       CHAIN,    KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask,           CHAIN,    KEY,      toggleview,     {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             CHAIN,    KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask|ShiftMask, CHAIN,    KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -82,79 +82,79 @@ static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34
 #include <X11/XF86keysym.h>
 #include "movestack.c"
 static Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,		        XK_Return, spawn,          {.v = termcmd } },
-	{ 0,				XK_Print,  spawn,	   SHCMD("maim --hidecursor $HOME/Pictures/screenshots/$(date +%d_%b_%H:%M ).png") },
-	{ ShiftMask,			XK_Print,  spawn,	   SHCMD("maim -s --hidecursor $HOME/Pictures/screenshots/$(date +%d_%b_%H:%M ).png") },
-	{ MODKEY,			XK_o,	   spawn,	   SHCMD("dmenu_websearch") },
-	{ MODKEY|ShiftMask,		XK_n,	   spawn,	   SHCMD("st -e newsboat") },
-	{ MODKEY|ShiftMask,		XK_w,	   spawn,	   SHCMD("st -e weather") },
-	{ MODKEY,			XK_c,	   spawn,	   SHCMD("st -e calcurse") },
-	{ MODKEY,			XK_semicolon,   spawn,	   SHCMD("dswitcher") },
-	{ MODKEY,			XK_BackSpace, spawn,	   SHCMD("dmenufm") },
-	{ MODKEY,			XK_t,	   spawn,	   SHCMD("telegram-desktop") },
-	{ MODKEY,			XK_w,	   spawn,	   SHCMD("qutebrowser") }, 
-	{ MODKEY,			XK_e,	   spawn,	   SHCMD("emoji") },
-	{ MODKEY|ShiftMask,		XK_m,      spawn,	   SHCMD("dmenumount") },
-	{ MODKEY|ShiftMask,		XK_u,	   spawn,	   SHCMD("dmenuumount") },
-	{ MODKEY,			XK_m,	   spawn,	   SHCMD("st -e neomutt") },
-	{ MODKEY|ShiftMask,		XK_r,	   spawn,	   SHCMD("st -e ranger") },
-	{ MODKEY,			XK_r,	   rotatestack,	   {0} },
-	{ MODKEY,			XK_s,	   togglesticky,   {0} },
-	{ MODKEY|ShiftMask,		XK_Return, togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,		XK_j,	   movestack,	   {.i = +1 } },
-	{ MODKEY|ShiftMask,		XK_k,	   movestack,	   {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-//	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-//	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-//	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-//	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-//	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY,	                XK_space,  togglefloating, {0} },
-	{ MODKEY,			XK_f,      togglefullscr,  {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_plus,                      0)
-	TAGKEYS(                        XK_ecaron,                      1)
-	TAGKEYS(                        XK_scaron,                      2)
-	TAGKEYS(                        XK_ccaron,                      3)
-	TAGKEYS(                        XK_rcaron,                      4)
-	TAGKEYS(                        XK_zcaron,                      5)
-	TAGKEYS(                        XK_yacute,                      6)
-	TAGKEYS(                        XK_aacute,                      7)
-	TAGKEYS(                        XK_iacute,                      8)
-//numpad
-	TAGKEYS(			XK_KP_End,			0)
-	TAGKEYS(			XK_KP_Down,			1)
-	TAGKEYS(			XK_KP_Next,			2)
-	TAGKEYS(			XK_KP_Left,			3)
-	TAGKEYS(			XK_KP_Begin,			4)
-	TAGKEYS(			XK_KP_Right,			5)
-	TAGKEYS(			XK_KP_Home,			6)
-	TAGKEYS(			XK_KP_Up,			7)
-	TAGKEYS(			XK_KP_Prior,			8)
-//	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
-	{ MODKEY|ShiftMask,		XK_e,	   spawn,	   {.v = dmenuexit } },
+	/* modifier                     chain key   key        function        argument */
+	{ MODKEY,                       -1,	    XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,		        -1,	    XK_Return, spawn,          {.v = termcmd } },
+	{ 0,				-1,	    XK_Print,  spawn,	   SHCMD("maim --hidecursor $HOME/Pictures/screenshots/$(date +%d_%b_%H:%M ).png") },
+	{ ShiftMask,			-1,	    XK_Print,  spawn,	   SHCMD("maim -s --hidecursor $HOME/Pictures/screenshots/$(date +%d_%b_%H:%M ).png") },
+	{ MODKEY,			-1,	    XK_o,	   spawn,	   SHCMD("dmenu_websearch") },
+	{ MODKEY|ShiftMask,		-1,	    XK_n,	   spawn,	   SHCMD("st -e newsboat") },
+	{ MODKEY|ShiftMask,		-1,	    XK_w,	   spawn,	   SHCMD("st -e weather") },
+	{ MODKEY,			-1,	    XK_c,	   spawn,	   SHCMD("st -e calcurse") },
+	{ MODKEY,			-1,	    XK_semicolon,   spawn,	   SHCMD("dswitcher") },
+	{ MODKEY,			-1,	    XK_BackSpace, spawn,	   SHCMD("dmenufm") },
+	{ MODKEY,			-1,	    XK_t,	   spawn,	   SHCMD("telegram-desktop") },
+	{ MODKEY,			-1,	    XK_w,	   spawn,	   SHCMD("qutebrowser") }, 
+	{ MODKEY,			-1,	    XK_e,	   spawn,	   SHCMD("emoji") },
+	{ MODKEY|ShiftMask,		-1,	    XK_m,      spawn,	   SHCMD("dmenumount") },
+	{ MODKEY|ShiftMask,		-1,	    XK_u,	   spawn,	   SHCMD("dmenuumount") },
+	{ MODKEY,			-1,	    XK_m,	   spawn,	   SHCMD("st -e neomutt") },
+	{ MODKEY|ShiftMask,		-1,	    XK_r,	   spawn,	   SHCMD("st -e ranger") },
+	{ MODKEY,			-1,	    XK_r,	   rotatestack,	   {0} },
+	{ MODKEY,			-1,	    XK_s,	   togglesticky,   {0} },
+	{ MODKEY|ShiftMask,		-1,	    XK_Return, togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY,                       -1,	    XK_b,      togglebar,      {0} },
+	{ MODKEY,                       -1,	    XK_j,      focusstack,     {.i = +1 } },
+	{ MODKEY,                       -1,	    XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,		-1,	    XK_j,	   movestack,	   {.i = +1 } },
+	{ MODKEY|ShiftMask,		-1,	    XK_k,	   movestack,	   {.i = -1 } },
+	{ MODKEY|ShiftMask,             -1,	    XK_i,      incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             -1,	    XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       -1,	    XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       -1,	    XK_l,      setmfact,       {.f = +0.05} },
+//	{ MODKEY,                       -1,	    XK_Return, zoom,           {0} },
+	{ MODKEY,                       -1,	    XK_Tab,    view,           {0} },
+	{ MODKEY|ShiftMask,             -1,	    XK_q,      killclient,     {0} },
+//	{ MODKEY,                       -1,	    XK_t,      setlayout,      {.v = &layouts[0]} },
+//	{ MODKEY,                       -1,	    XK_f,      setlayout,      {.v = &layouts[1]} },
+//	{ MODKEY,                       -1,	    XK_m,      setlayout,      {.v = &layouts[2]} },
+//	{ MODKEY,                       -1,	    XK_space,  setlayout,      {0} },
+	{ MODKEY,	                -1,	    XK_space,  togglefloating, {0} },
+	{ MODKEY,			-1,	    XK_f,      togglefullscr,  {0} },
+	{ MODKEY,                       -1,	    XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             -1,	    XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY,                       -1,	    XK_comma,  focusmon,       {.i = -1 } },
+	{ MODKEY,                       -1,	    XK_period, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             -1,	    XK_comma,  tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             -1,	    XK_period, tagmon,         {.i = +1 } },
+	TAGKEYS(                        -1,	    XK_plus,                      0)
+	TAGKEYS(                        -1,	    XK_ecaron,                      1)
+	TAGKEYS(                        -1,	    XK_scaron,                      2)
+	TAGKEYS(                        -1,	    XK_ccaron,                      3)
+	TAGKEYS(                        -1,	    XK_rcaron,                      4)
+	TAGKEYS(                        -1,	    XK_zcaron,                      5)
+	TAGKEYS(                        -1,	    XK_yacute,                      6)
+	TAGKEYS(                        -1,	    XK_aacute,                      7)
+	TAGKEYS(                        -1,	    XK_iacute,                      8)
+//numpad                                
+	TAGKEYS(			-1,	    XK_KP_End,			0)
+	TAGKEYS(			-1,	    XK_KP_Down,			1)
+	TAGKEYS(			-1,	    XK_KP_Next,			2)
+	TAGKEYS(			-1,	    XK_KP_Left,			3)
+	TAGKEYS(			-1,	    XK_KP_Begin,			4)
+	TAGKEYS(			-1,	    XK_KP_Right,			5)
+	TAGKEYS(			-1,	    XK_KP_Home,			6)
+	TAGKEYS(			-1,	    XK_KP_Up,			7)
+	TAGKEYS(			-1,	    XK_KP_Prior,			8)
+//	{ MODKEY|ShiftMask,             -1,	    XK_e,      quit,           {0} },
+	{ MODKEY|ShiftMask,		-1,	    XK_e,	   spawn,	   {.v = dmenuexit } },
 	
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,			    SHCMD("amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+13 dwmblocks") },
-	{ 0, XF86XK_AudioLowerVolume,   spawn,			    SHCMD("amixer -q -D pulse sset Master 5%- && pkill -RTMIN+13 dwmblocks") },
-	{ 0, XF86XK_AudioMute,		spawn,			    SHCMD("amixer -q -D pulse sset Master toggle") },
-	{ 0, XF86XK_MonBrightnessUp,	spawn,			    SHCMD("xbacklight -dec 10") },
-	{ 0, XF86XK_MonBrightnessDown,	spawn,			    SHCMD("xbacklight -inc 10") },
-	{ 0, XF86XK_TouchpadToggle,	spawn,			    SHCMD("(synclient | grep 'Touchpad0ff.*1' && synclient Touchpad0ff=0) || synclient Touchpad0ff=1") },	
+	{ 0, -1, XF86XK_AudioRaiseVolume,	spawn,			    SHCMD("amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+13 dwmblocks") },
+	{ 0, -1, XF86XK_AudioLowerVolume,   spawn,			    SHCMD("amixer -q -D pulse sset Master 5%- && pkill -RTMIN+13 dwmblocks") },
+	{ 0, -1, XF86XK_AudioMute,		spawn,			    SHCMD("amixer -q -D pulse sset Master toggle") },
+	{ 0, -1, XF86XK_MonBrightnessUp,	spawn,			    SHCMD("xbacklight -dec 10") },
+	{ 0, -1, XF86XK_MonBrightnessDown,	spawn,			    SHCMD("xbacklight -inc 10") },
+	{ 0, -1, XF86XK_TouchpadToggle,	spawn,			    SHCMD("(synclient | grep 'Touchpad0ff.*1' && synclient Touchpad0ff=0) || synclient Touchpad0ff=1") },	
 };
 
 /* button definitions */
